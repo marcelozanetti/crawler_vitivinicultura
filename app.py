@@ -116,16 +116,19 @@ def endpoint_lista_produtos():
         in: query
         type: integer
         required: true
-        description: Ano do exercício desejado      
+        description: Exercício desejado      
     responses:
       200:
         description: Lista de produtos agrupados por exercício.
     security:
       - Bearer: []
     """
+
     exercicio = request.args.get('exercicio', type=int)
     if exercicio is None:
         return jsonify({"erro": "Parâmetro 'exercicio' é obrigatório e deve ser inteiro."}), 400
+    if exercicio < 1970 or exercicio > 2023:
+        return jsonify({"erro": "O parâmetro 'exercicio' deve estar entre 1970 e 2023."}), 400
 
     resultado = crawler_lista_producaoEComercializacao("http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_02", exercicio)
     return jsonify({"dados": resultado})
@@ -143,7 +146,7 @@ def endpoint_lista_processamento():
         in: query
         type: integer
         required: true
-        description: Ano do exercício desejado         
+        description: Exercício desejado         
     responses:
       200:
         description: Lista de uvas viníferas processadas no exercício.
@@ -153,6 +156,9 @@ def endpoint_lista_processamento():
     exercicio = request.args.get('exercicio', type=int)
     if exercicio is None:
         return jsonify({"erro": "Parâmetro 'exercicio' é obrigatório e deve ser inteiro."}), 400
+    if exercicio < 1970 or exercicio > 2023:
+        return jsonify({"erro": "O parâmetro 'exercicio' deve estar entre 1970 e 2023."}), 400
+
     resultado = crawler_lista_processamento(exercicio)
     return jsonify({"dados": resultado})
 
@@ -169,7 +175,7 @@ def endpoint_lista_comercializacao():
         in: query
         type: integer
         required: true
-        description: Ano do exercício desejado           
+        description: Exercício desejado           
     responses:
       200:
         description: Lista de vinhos e derivados comercializados por exercício.
@@ -179,6 +185,9 @@ def endpoint_lista_comercializacao():
     exercicio = request.args.get('exercicio', type=int)
     if exercicio is None:
         return jsonify({"erro": "Parâmetro 'exercicio' é obrigatório e deve ser inteiro."}), 400
+    if exercicio < 1970 or exercicio > 2023:
+        return jsonify({"erro": "O parâmetro 'exercicio' deve estar entre 1970 e 2023."}), 400
+
     resultado = crawler_lista_producaoEComercializacao("http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_04", exercicio)
     return jsonify({"dados": resultado})
 
@@ -195,16 +204,19 @@ def endpoint_lista_importacao():
         in: query
         type: integer
         required: true
-        description: Ano do exercício desejado           
+        description: Exercício desejado           
     responses:
       200:
         description: Lista de vinhos e derivados importados por tipo de vinho e exercício.
     security:
       - Bearer: []
     """
+
     exercicio = request.args.get('exercicio', type=int)
     if exercicio is None:
         return jsonify({"erro": "Parâmetro 'exercicio' é obrigatório e deve ser inteiro."}), 400
+    if exercicio < 1970 or exercicio > 2023:
+        return jsonify({"erro": "O parâmetro 'exercicio' deve estar entre 1970 e 2023."}), 400
 
     resultado = crawler_lista_importexport("http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_05", exercicio)
     return jsonify({"dados": resultado})
@@ -222,7 +234,7 @@ def endpoint_lista_exportacao():
         in: query
         type: integer
         required: true
-        description: Ano do exercício desejado            
+        description: Exercício desejado            
     responses:
       200:
         description: Lista de vinhos e derivados importados por tipo de vinho e exercício.
@@ -232,6 +244,8 @@ def endpoint_lista_exportacao():
     exercicio = request.args.get('exercicio', type=int)
     if exercicio is None:
         return jsonify({"erro": "Parâmetro 'exercicio' é obrigatório e deve ser inteiro."}), 400
+    if exercicio < 1970 or exercicio > 2023:
+        return jsonify({"erro": "O parâmetro 'exercicio' deve estar entre 1970 e 2023."}), 400
 
     resultado = crawler_lista_importexport("http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_06", exercicio)
     return jsonify({"dados": resultado})
