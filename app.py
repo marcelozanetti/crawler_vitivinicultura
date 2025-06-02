@@ -103,89 +103,137 @@ def register_user():
     db.session.commit()
     return jsonify({"msg": "Usuário cadastrado com sucesso"}), 201
 
-@app.route('/produc', methods=['GET'])
+@app.route('/producao', methods=['GET'])
 @jwt_required()
 def endpoint_lista_produtos():
     """
-    Retorna a lista de vinhos e derivados produzidos entre 1970 e 2023.
+    Retorna a lista de vinhos e derivados produzidos por exercício.
     ---
     tags:
       - Dados da Vitivinicultura
+    parameters:
+      - name: exercicio
+        in: query
+        type: integer
+        required: true
+        description: Ano do exercício desejado      
     responses:
       200:
-        description: Lista de produtos agrupados por ano.
+        description: Lista de produtos agrupados por exercício.
     security:
       - Bearer: []
     """
-    resultado = crawler_lista_producaoEComercializacao("http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_02")
+    exercicio = request.args.get('exercicio', type=int)
+    if exercicio is None:
+        return jsonify({"erro": "Parâmetro 'exercicio' é obrigatório e deve ser inteiro."}), 400
+
+    resultado = crawler_lista_producaoEComercializacao("http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_02", exercicio)
     return jsonify({"dados": resultado})
 
 @app.route('/processamento', methods=['GET'])
 @jwt_required()
 def endpoint_lista_processamento():
     """
-    Retorna a lista de uvas viníferas processadas entre 1970 e 2023.
+    Retorna a lista de uvas viníferas processadas por exercício.
     ---
     tags:
       - Dados da Vitivinicultura
+    parameters:
+      - name: exercicio
+        in: query
+        type: integer
+        required: true
+        description: Ano do exercício desejado         
     responses:
       200:
-        description: Lista de uvas viníferas processadas entre 1970 e 2023.
+        description: Lista de uvas viníferas processadas no exercício.
     security:
       - Bearer: []
     """
-    resultado = crawler_lista_processamento()
+    exercicio = request.args.get('exercicio', type=int)
+    if exercicio is None:
+        return jsonify({"erro": "Parâmetro 'exercicio' é obrigatório e deve ser inteiro."}), 400
+    resultado = crawler_lista_processamento(exercicio)
     return jsonify({"dados": resultado})
 
 @app.route('/comercializacao', methods=['GET'])
 @jwt_required()
 def endpoint_lista_comercializacao():
     """
-    Retorna a lista de vinhos e derivados comercialização entre 1970 e 2023.
+    Retorna a lista de vinhos e derivados comercialização por exercício.
     ---
     tags:
       - Dados da Vitivinicultura
+    parameters:
+      - name: exercicio
+        in: query
+        type: integer
+        required: true
+        description: Ano do exercício desejado           
     responses:
       200:
         description: Lista de vinhos e derivados comercializados por exercício.
     security:
       - Bearer: []
     """
-    resultado = crawler_lista_producaoEComercializacao("http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_04")
+    exercicio = request.args.get('exercicio', type=int)
+    if exercicio is None:
+        return jsonify({"erro": "Parâmetro 'exercicio' é obrigatório e deve ser inteiro."}), 400
+    resultado = crawler_lista_producaoEComercializacao("http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_04", exercicio)
     return jsonify({"dados": resultado})
 
 @app.route('/importacao', methods=['GET'])
 @jwt_required()
 def endpoint_lista_importacao():
     """
-    Retorna a lista de vinhos e derivados importados entre 1970 e 2023.
+    Retorna a lista de vinhos e derivados importados por exercício.
     ---
     tags:
       - Dados da Vitivinicultura
+    parameters:
+      - name: exercicio
+        in: query
+        type: integer
+        required: true
+        description: Ano do exercício desejado           
     responses:
       200:
         description: Lista de vinhos e derivados importados por tipo de vinho e exercício.
     security:
       - Bearer: []
     """
-    resultado = crawler_lista_importexport("http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_05")
+    exercicio = request.args.get('exercicio', type=int)
+    if exercicio is None:
+        return jsonify({"erro": "Parâmetro 'exercicio' é obrigatório e deve ser inteiro."}), 400
+
+    resultado = crawler_lista_importexport("http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_05", exercicio)
     return jsonify({"dados": resultado})
 
 @app.route('/exportacao', methods=['GET'])
 @jwt_required()
 def endpoint_lista_exportacao():
     """
-    Retorna a lista de vinhos e derivados importados entre 1970 e 2023.
+    Retorna a lista de vinhos e derivados importados por exercício.
     ---
     tags:
       - Dados da Vitivinicultura
+    parameters:
+      - name: exercicio
+        in: query
+        type: integer
+        required: true
+        description: Ano do exercício desejado            
     responses:
       200:
         description: Lista de vinhos e derivados importados por tipo de vinho e exercício.
     security:
       - Bearer: []
     """
-    resultado = crawler_lista_importexport("http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_06")
+    exercicio = request.args.get('exercicio', type=int)
+    if exercicio is None:
+        return jsonify({"erro": "Parâmetro 'exercicio' é obrigatório e deve ser inteiro."}), 400
+
+    resultado = crawler_lista_importexport("http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_06", exercicio)
     return jsonify({"dados": resultado})
 
 
