@@ -36,6 +36,10 @@ db.init_app(app)  # Inicializa o banco de dados com o app
 jwt = JWTManager(app)
 swagger = Swagger(app)
 
+@app.route("/")
+def home():
+    return "API online!"
+
 #rotas
 @app.route('/login', methods=['POST'])
 def login():
@@ -255,7 +259,6 @@ def endpoint_lista_exportacao():
 
     resultado = crawler_lista_importexport("http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_06", exercicio)
     return jsonify({"dados": resultado})
-
 
 #if __name__ == '__main__':
 #    app.run(debug=False)
