@@ -257,5 +257,5 @@ def endpoint_lista_exportacao():
     return jsonify({"dados": resultado})
 
 
-if __name__ == '__main__':
-    app.run(debug=False)
+#if __name__ == '__main__':
+#    app.run(debug=False)
