@@ -1,4 +1,5 @@
 import logging
+import os
 
 # Configuração de logging
 logging.basicConfig(level=logging.INFO)
@@ -13,7 +14,7 @@ class config:
         'title': 'API - Informações da Embrapa',
         'uiversion': 3
     }
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///embrapa.db'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(os.path.abspath(os.path.dirname(__file__)), 'instance','embrapa.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     DEFAULT_HEADLESS = True
     

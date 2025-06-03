@@ -42,6 +42,8 @@ def login():
     """
     Faz o login do usuário e retorna um token JWT.
     ---
+    tags:
+      - Administracao    
     parameters:
         - in: body
           name: usuario
@@ -74,6 +76,8 @@ def register_user():
     """
     Registra um novo usuário.
     ---
+    tags:
+      - Administracao
     parameters:
         - in: body
           name: user
@@ -94,6 +98,8 @@ def register_user():
             description: Usuário cadastrado com sucesso
         400:
             description: Usuário já cadastrado
+    security:
+      - Bearer: []            
     """
     data = request.get_json()
     if Usuario.query.filter((Usuario.usuario == data['usuario']) | (Usuario.email == data['email'])).first():
