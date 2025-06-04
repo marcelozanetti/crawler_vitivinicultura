@@ -260,5 +260,5 @@ def endpoint_lista_exportacao():
     resultado = crawler_lista_importexport("http://vitibrasil.cnpuv.embrapa.br/index.php?opcao=opt_06", exercicio)
     return jsonify({"dados": resultado})
 
-#if __name__ == '__main__':
-#    app.run(debug=False)
+if __name__ == '__main__':
+    app.run(debug=False)
