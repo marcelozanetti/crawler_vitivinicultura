@@ -1,0 +1,42 @@
+TechChallenge - API Vitivinicultura
+API desenvolvida para o TechChallenge do curso PosTech - Machine Learning, que realiza web scraping de dados públicos da vitivinicultura brasileira (Embrapa) utilizando Python, Flask, Selenium e JWT.
+
+Funcionalidades
+Autenticação JWT: Rotas protegidas por login.
+Web Scraping: Coleta de dados dinâmicos do site da Embrapa usando Selenium.
+Rotas de API:
+/login: Autenticação e geração de token JWT.
+/producao: Lista de vinhos e derivados produzidos por exercício.
+/comercializacao: Lista de vinhos e derivados comercializados por exercício.
+/processamento: Lista de produtos processados por exercício.
+/exportacao: Lista de vinhos e derivados exportados por exercício.
+Swagger: Documentação interativa disponível em /apidocs.
+Tecnologias Utilizadas
+Python 3.12
+Flask
+Flask-JWT-Extended
+Flask-SQLAlchemy
+Selenium + webdriver-manager
+Gunicorn
+Pandas
+Flasgger (Swagger UI)
+Como rodar localmente
+Clone o repositório:
+
+Crie e ative um ambiente virtual:
+
+Instale as dependências:
+
+Execute a aplicação:
+
+Acesse http://localhost:5000/
+
+Deploy
+O deploy pode ser feito facilmente no Railway.
+Certifique-se de expor o serviço e definir o comando de start como:
+
+Observações
+Para scraping funcionar em produção (Railway), é necessário garantir que o Google Chrome esteja instalado no ambiente.
+O projeto utiliza Selenium em modo headless para coletar dados dinâmicos.
+Licença
+Este projeto é apenas para fins educacionais.
